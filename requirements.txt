@@ -1,0 +1,6 @@
+flask
+gymnasium
+selenium
+numpy
+stable-baselines3
+stable-baselines3[extra]
