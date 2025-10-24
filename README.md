@@ -8,7 +8,7 @@ This repository implements a **custom Gymnasium-compatible environment** imulati
 
 | Name             | Role / Contribution                  |
 |------------------|-------------------------------------|
-| **Hailey D'Souza** | Lead Developer |
+| **Hailey D'souza** | Lead Developer |
 |  **Sammak Ahmed**| Developer |
 
 ## Project Structure
@@ -216,3 +216,4 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
