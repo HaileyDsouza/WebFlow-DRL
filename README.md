@@ -34,7 +34,7 @@ project_root/
 │ │ └─ dashboard.html
 │ └─ server.py
 │
-├─ models/webflow/ # Saved models
+├─ models/webflow/ # Saved PPO agent, created automatically during testing,demonstrates reproducibility and file structure
 ├─ logs/  # Training and evaluation logs 
 ├─ configs/ # YAML configs for algorithms, rewards, seeds, personas
 ├─ requirements.txt
@@ -229,6 +229,7 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
 
 
 
