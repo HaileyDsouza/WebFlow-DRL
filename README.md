@@ -149,6 +149,9 @@ python -m src.graph_results
 ### Observations
 
 Each observation represents a simplified web state (page progress, form completion, and navigation success indicators).
+<img width="1912" height="694" alt="image" src="https://github.com/user-attachments/assets/c064c76c-44b8-40fa-93a1-88aa575eb487" />
+<img width="1913" height="738" alt="image" src="https://github.com/user-attachments/assets/726e7946-23cd-49be-b508-f9db517979a4" />
+<img width="1915" height="703" alt="image" src="https://github.com/user-attachments/assets/e463b497-7e4e-4328-a1f3-c12b2b329e08" />
 
 ---
 
@@ -226,6 +229,7 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
 
 
 
