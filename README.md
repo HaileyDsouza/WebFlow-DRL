@@ -182,6 +182,16 @@ The evaluation script logs:
   <img src="logs/reward_vs_episode.png" width="500">
 </p>
 
+**Score Distributions:** 
+<p align="center">
+   <img src="logs/score_distribution.png" width="450">
+</p>
+
+**Success Rate Analysis:**
+<p align="center">
+   <img src="logs/success_rate.png" width="450">
+</p>
+
 **Evaluation CSV Preview:**  
 | Episode | Total Reward | Login Success | Contact Visit | Steps | Time Elapsed |
 |----------|---------------|----------------|----------------|---------|---------------|
@@ -216,4 +226,5 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
 
