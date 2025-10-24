@@ -179,7 +179,7 @@ The evaluation script logs:
 
 **Reward Curve:**  
 <p align="center">
-  <img src="logs/reward_vs_episode.png" width="500">
+  <img src="logs/reward_vs_timesteps.png" width="500">
 </p>
 
 **Score Distributions:** 
@@ -226,5 +226,6 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
 
 
