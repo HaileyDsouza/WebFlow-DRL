@@ -5,7 +5,7 @@ from stable_baselines3 import PPO, A2C
 from envs.web_flow_env import WebFlowEnv
 
 def train_model(algo, persona, timesteps, seed):
-    env = WebFlowEnv(mode=persona, headless=False)
+    env = WebFlowEnv(mode=persona, headless=True)
 
     if algo.lower() == "ppo":
         model = PPO("MlpPolicy", env, verbose=1, seed=seed)

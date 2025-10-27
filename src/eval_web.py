@@ -13,7 +13,7 @@ def load_model(algo, model_path, env):
         raise ValueError("Sorry don't recogonize algorithm")
 
 def evaluate_model(algo, model_path, persona, episodes):
-    env = WebFlowEnv(mode=persona, headless=True)
+    env = WebFlowEnv(mode=persona, headless=False)
     model = load_model(algo, model_path, env)
 
     all_rows = []

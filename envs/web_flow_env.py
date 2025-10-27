@@ -31,8 +31,11 @@ class WebFlowEnv(gym.Env):
         self.driver = webdriver.Chrome(options=options)
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
-        self.driver.get("http://127.0.0.1:5000/login")
-        time.sleep(2) 
+        if not self.driver.session_id:
+            self.driver = webdriver.Chrome(options=self.options)
+        else:
+            self.driver.get("http://127.0.0.1:5000/login")
+        time.sleep(1) 
         self.step_count = 0
         self.username_done = False
         self.password_done = False
