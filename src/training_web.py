@@ -55,7 +55,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train DRL agent on web flow")
     parser.add_argument("--algo", default="ppo", help="ppo or a2c")
     parser.add_argument("--persona", default="form_filler", help="form_filler or explorer")
-    parser.add_argument("--timesteps", type=int, default=200)
+    parser.add_argument("--timesteps", type=int, default=100)
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
@@ -66,8 +66,14 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nTraining failed: {e}")
     finally:
+        try:
+            env.close()
+            print("\nEnvironment closed successfully.")
+        except Exception as e:
+            print(f"Error while closing environment: {e}")
+
         os.makedirs("models/webflow", exist_ok=True)
         dummy_path = "models/webflow/ppo_partial_seed42.zip"
         with open(dummy_path, "w") as f:
             f.write("temporary placeholder")
-        print(f"\n Dummy model saved to {dummy_path}")
+        print(f"\n✅ Dummy model saved to {dummy_path}")

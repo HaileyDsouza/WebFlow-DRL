@@ -11,31 +11,28 @@ import time
 class WebFlowEnv(gym.Env):
     def __init__(self, mode="form_filler", headless=True):
         super().__init__()
-        self.mode = mode  # "form_filler" or "explorer"
-        self.action_space = spaces.Discrete(4)  # 0: type username, 1: type password, 2: submit, 3: visit contact page
+        self.mode = mode
+        self.action_space = spaces.Discrete(4)
         self.observation_space = spaces.Box(low=0, high=1, shape=(3,), dtype=np.float32)
         self.max_steps = 20
         self.step_count = 0
 
-        options = Options()
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--disable-infobars")
-        options.add_argument("--disable-extensions")
-        options.add_argument("--start-maximized")
-        # keep headless optional
+        chrome_opts = Options()
+        chrome_opts.add_argument("--no-sandbox")
+        chrome_opts.add_argument("--disable-dev-shm-usage")
+        chrome_opts.add_argument("--disable-gpu")
+        chrome_opts.add_argument("--disable-extensions")
+        chrome_opts.add_argument("--disable-infobars")
+        chrome_opts.add_argument("--start-maximized")
         if headless:
-            options.add_argument("--headless")
+            chrome_opts.add_argument("--headless")
 
-        self.driver = webdriver.Chrome(options=options)
+        self.driver = webdriver.Chrome(options=chrome_opts)
+
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
-        if not self.driver.session_id:
-            self.driver = webdriver.Chrome(options=self.options)
-        else:
-            self.driver.get("http://127.0.0.1:5000/login")
-        time.sleep(1) 
+        self.driver.get("http://127.0.0.1:5000/login")
+        time.sleep(1)
         self.step_count = 0
         self.username_done = False
         self.password_done = False
@@ -52,54 +49,49 @@ class WebFlowEnv(gym.Env):
 
         try:
             if action == 0:
-                # Wait until the username field appears
-                WebDriverWait(self.driver, 5).until(
+                WebDriverWait(self.driver, 2).until(
                     EC.presence_of_element_located((By.NAME, "username"))
                 )
                 user = self.driver.find_element(By.NAME, "username")
                 user.clear()
                 user.send_keys("admin")
                 self.username_done = True
-                reward += 0.2
+                reward += 0.3
 
             elif action == 1:
-                # Wait for password input
-                WebDriverWait(self.driver, 5).until(
+                WebDriverWait(self.driver, 2).until(
                     EC.presence_of_element_located((By.NAME, "password"))
                 )
                 pwd = self.driver.find_element(By.NAME, "password")
                 pwd.clear()
                 pwd.send_keys("123")
                 self.password_done = True
-                reward += 0.2
+                reward += 0.3
 
             elif action == 2:
-                # Try clicking login button
-                WebDriverWait(self.driver, 5).until(
+                WebDriverWait(self.driver, 2).until(
                     EC.presence_of_element_located((By.TAG_NAME, "button"))
                 )
                 self.driver.find_element(By.TAG_NAME, "button").click()
-                time.sleep(0.3)
+                time.sleep(0.2)
                 if "Dashboard" in self.driver.title:
-                    reward += 5
                     self.login_success = True
+                    reward += 3
                     done = True
                 else:
-                    reward -= 0.5
+                    reward -= 0.3
 
             elif action == 3:
                 self.driver.get("http://127.0.0.1:5000/contact")
                 self.visited_contact = True
-                reward += 0.5
+                reward += 0.4
 
         except Exception as e:
             print("Error:", e)
             reward -= 0.1
 
-        if self.mode == "explorer" and self.visited_contact:
-            reward += 0.3
-
-        if self.step_count >= self.max_steps:
+        # Stop early if enough steps or login was successful
+        if self.step_count >= self.max_steps or self.login_success:
             done = True
 
         obs = np.array([
@@ -118,4 +110,8 @@ class WebFlowEnv(gym.Env):
         return obs, reward, done, False, info
 
     def close(self):
-        self.driver.quit()
+        try:
+            self.driver.quit()
+        except:
+            pass
+
