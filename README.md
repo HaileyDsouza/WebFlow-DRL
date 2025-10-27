@@ -223,6 +223,9 @@ The evaluation script logs:
 
 ## Demo Run
 
+### Visualization
+![Web Flow DRL Demo](outputs/Demo.gif)
+
 After setup, run:
 ```bash
 python -m src.training_web
@@ -247,6 +250,7 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
 
 
 
