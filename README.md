@@ -61,6 +61,24 @@ pip install -r requirements.txt
 ```
 ---
 
+## 🖥️ Running the Project
+
+This setup requires **two active terminals** running concurrently:
+
+### **Terminal 1 – Start the Web Server**
+
+Run the Flask web app (this must stay active while training or evaluation runs):
+
+```bash
+python server.py
+```
+
+This starts a local web server at `http://127.0.0.1:5000`, which the DRL agent interacts with through Selenium.
+
+---
+
+### **Terminal 2 
+
 ## Training an Agent
 
 Use src/training_web.py to train a PPO or A2C model on the WebFlowEnv.
@@ -229,6 +247,7 @@ Expected outputs:
 * ❌ Browser window may freeze if not headless  
 
 ---
+
 
 
 
